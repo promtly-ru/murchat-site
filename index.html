@@ -4,111 +4,208 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Почему мурчат котики?</title>
-  <meta name="description" content="Простое объяснение, почему кошки мурчат: как это работает и зачем им это нужно.">
+  <meta name="description" content="Простое объяснение, почему кошки мурчат: как устроен «моторчик» внутри кошки и зачем он ей нужен. С живым котом, которого можно погладить.">
+  <meta property="og:title" content="Почему мурчат котики?">
+  <meta property="og:description" content="Как устроен «моторчик» внутри кошки и зачем он ей нужен. Объясняем на понятных примерах.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🐈%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="hero">
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a class="logo" href="#top">мур<span>.</span></a>
+      <ul class="nav-links">
+        <li><a href="#how">Как</a></li>
+        <li><a href="#why">Зачем</a></li>
+        <li><a href="#lab">Послушать</a></li>
+        <li><a href="#quiz">Тест</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
     <div class="wrap hero-inner">
-      <div>
-        <p class="eyebrow">Просто о забавном</p>
-        <h1>Почему мурчат котики?</h1>
-        <p class="lead">Объясняем на понятных примерах: что за «моторчик» внутри кошки и зачем он ей нужен.</p>
-        <a class="btn" href="#how">Узнать, как это работает</a>
+      <div class="hero-text">
+        <p class="eyebrow">Объясняем на пальцах (и лапах)</p>
+        <h1>Почему мурчат <em>котики?</em></h1>
+        <p class="lead">Внутри каждой кошки работает маленький моторчик. Разберёмся, как он устроен, зачем он нужен и почему мурчание не всегда значит «мне хорошо».</p>
+        <div class="hero-actions">
+          <a class="btn" href="#how">Разобраться</a>
+          <span class="hint" id="hint">← или зажми кота и послушай</span>
+        </div>
       </div>
-      <div class="cat-box" id="cat" aria-label="Нарисованный кот" role="img">
-        <svg viewBox="0 0 200 180" width="100%" aria-hidden="true">
-          <polygon points="45,70 55,15 90,50" fill="var(--cat)"/>
-          <polygon points="155,70 145,15 110,50" fill="var(--cat)"/>
-          <polygon points="52,60 57,30 77,50" fill="var(--ear)"/>
-          <polygon points="148,60 143,30 123,50" fill="var(--ear)"/>
-          <ellipse cx="100" cy="100" rx="68" ry="58" fill="var(--cat)"/>
-          <path d="M70 92 q8 -9 16 0" stroke="#222" stroke-width="4" fill="none" stroke-linecap="round"/>
-          <path d="M114 92 q8 -9 16 0" stroke="#222" stroke-width="4" fill="none" stroke-linecap="round"/>
-          <polygon points="95,108 105,108 100,116" fill="#e58a9b"/>
-          <path d="M100 116 q-8 10 -16 4 M100 116 q8 10 16 4" stroke="#222" stroke-width="3" fill="none" stroke-linecap="round"/>
-          <path d="M60 108 h-30 M60 116 l-28 8 M140 108 h30 M140 116 l28 8" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-        </svg>
+
+      <div class="cat-stage">
+        <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+        <button class="cat" id="cat" type="button" aria-label="Кот. Зажми, чтобы он замурчал" aria-pressed="false">
+          <svg viewBox="0 0 320 320" aria-hidden="true">
+            <ellipse cx="160" cy="304" rx="104" ry="9" class="shadow"/>
+            <g class="tail"><path d="M222 278 C 300 282, 312 200, 268 168" /></g>
+            <ellipse cx="160" cy="238" rx="82" ry="70" class="fur"/>
+            <ellipse cx="160" cy="254" rx="46" ry="48" class="belly"/>
+            <ellipse cx="128" cy="298" rx="24" ry="12" class="fur"/>
+            <ellipse cx="192" cy="298" rx="24" ry="12" class="fur"/>
+            <polygon points="88,104 96,28 146,74" class="fur"/>
+            <polygon points="232,104 224,28 174,74" class="fur"/>
+            <polygon points="102,90 106,50 132,74" class="ear-in"/>
+            <polygon points="218,90 214,50 188,74" class="ear-in"/>
+            <ellipse cx="160" cy="138" rx="86" ry="74" class="fur"/>
+            <path d="M160 68 v20 M144 72 l5 16 M176 72 l-5 16" class="stripe"/>
+            <g class="eyes-open">
+              <ellipse cx="126" cy="136" rx="12" ry="15" class="ink"/>
+              <ellipse cx="194" cy="136" rx="12" ry="15" class="ink"/>
+              <circle cx="130" cy="130" r="4" fill="#fff"/>
+              <circle cx="198" cy="130" r="4" fill="#fff"/>
+            </g>
+            <g class="eyes-closed">
+              <path d="M112 140 q14 -14 28 0 M180 140 q14 -14 28 0" class="line"/>
+            </g>
+            <circle cx="104" cy="168" r="13" class="cheek"/>
+            <circle cx="216" cy="168" r="13" class="cheek"/>
+            <path d="M151 160 h18 l-9 10 z" class="nose"/>
+            <path d="M160 170 q-9 11 -20 5 M160 170 q9 11 20 5" class="line thin"/>
+            <path d="M92 164 h-40 M92 174 l-38 10 M228 164 h40 M228 174 l38 10" class="line whisker"/>
+          </svg>
+        </button>
+        <p class="purr-label" id="purrLabel" aria-live="polite">р-р-р-р…</p>
       </div>
     </div>
   </header>
 
   <main>
-    <section class="wrap reveal">
-      <h2>Что такое мурчание</h2>
-      <p>Мурчание — это низкий ровный звук «р-р-р», который кошка издаёт, когда ей что-то нужно или что-то нравится. Представь маленький моторчик, который работает и на вдохе, и на выдохе, поэтому звук почти не прерывается.</p>
-      <p>Обычно кот мурчит с закрытым ртом. Ему не надо специально «петь», это происходит само, как у нас получается зевок или смех.</p>
+    <section class="wrap stats reveal" aria-label="Коротко">
+      <div class="stat"><b>25–150</b><span>вибраций в секунду: так быстро дрожит «моторчик»</span></div>
+      <div class="stat"><b>вдох + выдох</b><span>кошка мурчит в обе стороны, поэтому звук почти не прерывается</span></div>
+      <div class="stat"><b>первые дни</b><span>котята мурчат почти с самого рождения</span></div>
     </section>
 
-    <section class="wrap reveal" id="how">
+    <section class="wrap section reveal" id="how">
+      <p class="eyebrow">Часть 1</p>
       <h2>Как это работает</h2>
-      <p>Чаще всего учёные объясняют так: мозг кошки посылает быстрые сигналы мышцам гортани (это «горлышко» с голосовыми связками). Мышцы очень быстро сжимаются и расслабляются, воздух проходит через узкую щель, и получается вибрация.</p>
-      <ol class="flow" aria-label="Схема мурчания">
-        <li><b>Мозг</b><span>даёт команду</span></li>
-        <li><b>Мышцы гортани</b><span>дёргаются очень быстро</span></li>
-        <li><b>Воздух</b><span>проходит через щель</span></li>
-        <li><b>Р-р-р</b><span>получается вибрация</span></li>
+      <p class="big">Мурчание рождается в горле, в гортани, там же, где у нас голос. Мозг посылает быстрые сигналы мышцам гортани, воздух проходит через голосовые складки, они дрожат, и вместе с ними гудит вся кошка.</p>
+
+      <ol class="flow">
+        <li><span class="step-ico">🧠</span><b>Мозг</b><span>включает «моторчик»</span></li>
+        <li><span class="step-ico">💨</span><b>Дыхание</b><span>гонит воздух туда и обратно</span></li>
+        <li><span class="step-ico">〰️</span><b>Голосовые складки</b><span>дрожат 25–150 раз в секунду</span></li>
+        <li><span class="step-ico">🐈</span><b>Р-р-р</b><span>вибрирует вся кошка</span></li>
       </ol>
-      <p class="example">Пример: когда ты быстро дёргаешь гитарную струну, она дрожит, и мы слышим звук. У кошки «струна» — это её голосовой аппарат.</p>
-      <p>Частота мурчания обычно около 25–150 колебаний в секунду (Гц). Это низкий звук, поэтому мурчание больше «чувствуешь» рукой, чем слышишь.</p>
+
+      <div class="analogies">
+        <div class="analogy">
+          <h3>Как очень низкий, «скрипучий» голос</h3>
+          <p>Скажи «а-а-а» максимально низко и лениво, пока голос не начнёт потрескивать. Учёные сравнивают мурчание как раз с таким звуком, только у кошки он ровный и тихий.</p>
+        </div>
+        <div class="analogy">
+          <h3>Как телефон на беззвучном</h3>
+          <p>Вибрация такая низкая, что её проще почувствовать, чем услышать. Положи ладонь коту на бок, и почувствуешь гудение, даже когда в комнате шумно.</p>
+        </div>
+      </div>
+      <p class="note">Учёные до сих пор спорят о деталях. В 2023 году исследователи из Вены показали, что гортань кошки может вибрировать на частоте мурчания даже без сигналов мозга: в голосовых складках есть мягкие «подушечки», которые делают их тяжелее. Скорее всего, у живой кошки мозг и это особое устройство работают вместе.</p>
     </section>
 
-    <section class="wrap reveal">
+    <section class="wrap section reveal" id="why">
+      <p class="eyebrow">Часть 2</p>
       <h2>Зачем кошки мурчат</h2>
-      <p>Не только от радости. Вот самые частые причины.</p>
+      <p class="big">Мурчание — это не только «мне хорошо». Скорее это сигнал «побудь рядом» и способ себя успокоить.</p>
       <div class="cards">
         <article class="card">
-          <h3>🛋️ Им хорошо</h3>
-          <p>Кот лежит у тебя на коленях, его гладят, тепло. Он мурчит, как человек, который довольно вздыхает.</p>
+          <span class="badge">🛋️</span>
+          <h3>Им хорошо</h3>
+          <p>Кот лежит на коленях, его гладят, тепло. Он мурчит, как человек, который довольно вздыхает в любимом кресле.</p>
         </article>
         <article class="card">
-          <h3>🍽️ Просят еды</h3>
-          <p>Многие кошки мурчат у миски или рядом с хозяином утром. В таком мурчании часто слышна тонкая «плачущая» нотка, будто кот намекает: «Ну пора уже кормить».</p>
+          <span class="badge">🍽️</span>
+          <h3>Просят еды</h3>
+          <p>Утреннее мурчание у миски звучит иначе: в нём спрятан тонкий «плач», похожий на детский. В опытах люди оценивали такое мурчание как более настойчивое, даже если у них никогда не было кошки.</p>
         </article>
         <article class="card">
-          <h3>😰 Успокаивают себя</h3>
-          <p>Кошки мурчат и когда волнуются, например у ветеринара. Это похоже на то, как мы напеваем себе под нос, когда немного страшно.</p>
+          <span class="badge">😰</span>
+          <h3>Успокаивают себя</h3>
+          <p>Кошки мурчат у ветеринара, когда им больно или страшно. Это как напевать себе под нос, когда идёшь по тёмному коридору.</p>
         </article>
         <article class="card">
-          <h3>🐱 Общаются с малышами</h3>
-          <p>Котята начинают мурчать уже в первые дни жизни. Так они говорят маме «я тут, мне хорошо», а она отвечает им тем же.</p>
+          <span class="badge">🐾</span>
+          <h3>Говорят с мамой</h3>
+          <p>Котята рождаются слепыми и глухими, но вибрацию чувствуют. Считается, что мурчание помогает им и маме понимать: «я здесь, всё в порядке». Котята часто мурчат во время кормления.</p>
         </article>
-        <article class="card">
-          <h3>💪 Возможно, лечатся</h3>
-          <p>Есть гипотеза, что вибрация такой частоты помогает костям и тканям восстанавливаться. Это пока предположение учёных, а не доказанный факт.</p>
+        <article class="card wide">
+          <span class="badge">🦴</span>
+          <h3>Возможно, лечатся</h3>
+          <p>Есть гипотеза: низкие вибрации помогают костям и тканям восстанавливаться, примерно как вибротерапия у людей. Звучит красиво, но это пока <b>не доказано</b>, учёные спорят.</p>
         </article>
       </div>
     </section>
 
-    <section class="wrap reveal">
-      <h2>Попробуй сам</h2>
-      <div class="play">
-        <button class="btn" id="pet" type="button">Погладить кота</button>
-        <p class="count" aria-live="polite">Кот помурчал: <b id="counter">0</b> раз</p>
+    <section class="wrap section reveal" id="lab">
+      <p class="eyebrow">Часть 3</p>
+      <h2>Послушай частоту</h2>
+      <p class="big">Двигай ползунок и слушай, как меняется звук. Слева так мурчит кошка, справа звук приближается к низкому человеческому голосу.</p>
+      <div class="lab">
+        <canvas id="wave" height="160" aria-hidden="true"></canvas>
+        <div class="lab-row">
+          <label for="freq">Частота: <b><output id="freqOut">25</output> Гц</b> <span class="muted" id="freqNote">— уютное мурчание</span></label>
+          <input type="range" id="freq" min="20" max="150" value="25" step="1">
+          <div class="scale" aria-hidden="true"><span>20 Гц<br>предел слуха</span><span>мурчание</span><span>150 Гц<br>низкий голос</span></div>
+        </div>
+        <button class="btn" id="labPlay" type="button" aria-pressed="false">▶ Слушать</button>
+        <p class="muted small">Совет: лучше в наушниках или с нормальными колонками. Динамик телефона почти не воспроизводит такие низкие звуки.</p>
       </div>
     </section>
 
-    <section class="wrap reveal">
+    <section class="wrap section reveal" id="who">
+      <p class="eyebrow">Часть 4</p>
+      <h2>Кто ещё мурчит</h2>
+      <p class="big">Если упростить, кошки делятся на тех, кто мурчит, и тех, кто рычит. Большие рычащие кошки ровно мурчать не умеют.</p>
+      <div class="who">
+        <div class="who-col">
+          <h3>Мурчат 😌</h3>
+          <ul><li>домашняя кошка</li><li>гепард</li><li>пума</li><li>снежный барс</li></ul>
+        </div>
+        <div class="who-col roar">
+          <h3>Рычат 🦁</h3>
+          <ul><li>лев</li><li>тигр</li><li>леопард</li><li>ягуар</li></ul>
+        </div>
+      </div>
+      <p class="note">Забавное исключение: снежный барс — близкий родственник льва и тигра, но рычать не умеет, зато издаёт мурчание. А что именно мешает большим кошкам мурчать, учёные до сих пор выясняют.</p>
+    </section>
+
+    <section class="wrap section reveal" id="quiz">
+      <p class="eyebrow">Проверь себя</p>
       <h2>Мини-тест</h2>
-      <div id="quiz"></div>
+      <div class="quiz" id="quizBox" aria-live="polite"></div>
     </section>
 
-    <section class="wrap reveal">
-      <h2>Мифы и факты</h2>
-      <dl class="myths">
-        <dt>«Кошки мурчат только от счастья»</dt>
-        <dd>Нет. Мурчание бывает и от волнения, и когда кошка просит еду.</dd>
-        <dt>«Мурчат только домашние кошки»</dt>
-        <dd>Нет. Мурчат и многие дикие виды, например гепарды и рыси. Львы и тигры ревут, но почти не мурчат.</dd>
-        <dt>«Котята учатся мурчать у мамы»</dt>
-        <dd>Они умеют это почти с рождения, мама просто отвечает им.</dd>
-      </dl>
+    <section class="wrap section reveal" id="myths">
+      <p class="eyebrow">Миф или правда</p>
+      <h2>Нажми на карточку</h2>
+      <div class="flips">
+        <button class="flip" type="button"><span class="front">«Мурчит — значит, счастлив»</span><span class="back"><b>Не всегда.</b> Кошки мурчат и от боли, и от страха. Смотри на позу и глаза, а не только на звук.</span></button>
+        <button class="flip" type="button"><span class="front">«Мурчание — это голос»</span><span class="back"><b>Почти.</b> Работает та же гортань, но звук идёт без перерыва, на вдохе и на выдохе. Мяукать так нельзя.</span></button>
+        <button class="flip" type="button"><span class="front">«Котят учат мурчать»</span><span class="back"><b>Нет.</b> Это врождённое умение, котята мурчат уже в первые дни жизни.</span></button>
+        <button class="flip" type="button"><span class="front">«Лев мурчит громче всех»</span><span class="back"><b>Нет.</b> Львы рычат, а ровно мурчать, как домашняя кошка, не умеют.</span></button>
+      </div>
+    </section>
+
+    <section class="wrap section reveal" id="sources">
+      <p class="eyebrow">Без выдумок</p>
+      <h2>Источники</h2>
+      <ul class="sources">
+        <li><a href="https://medienportal.univie.ac.at/en/media/recent-press-releases/detailansicht-en/artikel/cats-purr-differently-than-previously-thought" target="_blank" rel="noopener">Венский университет: «Кошки мурчат не так, как считалось» (Herbst и др., Current Biology, 2023)</a></li>
+        <li><a href="https://www.nationalgeographic.com/science/article/cats-manipulate-their-owners-with-a-cry-embedded-in-a-purr" target="_blank" rel="noopener">National Geographic: «плач» внутри просящего мурчания (McComb и др., Current Biology, 2009)</a></li>
+        <li><a href="https://www.panthera.org/blog-post/which-big-cats-purr" target="_blank" rel="noopener">Panthera: какие большие кошки мурчат</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Purr" target="_blank" rel="noopener">Wikipedia: Purr (обзор и ссылки на исследования)</a></li>
+      </ul>
     </section>
   </main>
 
   <footer class="foot">
-    <div class="wrap">
-      <p>Демо-проект для портфолио. Хочешь такой же сайт для своего дела? Напиши мне.</p>
+    <div class="wrap foot-inner">
+      <p><b>мур<span>.</span></b> Демо-проект для портфолио: вёрстка, анимации, интерактив и звук в браузере без сторонних библиотек.</p>
+      <p class="muted">Хочешь такой же сайт для своего дела? Напиши мне.</p>
     </div>
   </footer>
 
