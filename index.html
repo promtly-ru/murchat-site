@@ -31,10 +31,11 @@
       <section class="prose" id="start">
         <p class="lede">Положи ладонь на бок дремлющему коту, и почувствуешь ровное гудение, будто внутри работает крошечный холодильник. Этот звук знает каждый, кто хоть раз держал кошку на руках. Но как он получается и что кошка хочет им сказать, учёные выясняют до сих пор.</p>
         <p>Разберёмся по порядку: сначала как, потом зачем, и в конце — кто ещё так умеет.</p>
+        <p class="ticker" aria-live="off">Пока ты читаешь эту страницу, голосовые складки мурчащего кота дрогнули бы уже <b id="ticks">0</b>&nbsp;<span id="ticksWord">раз</span>.</p>
       </section>
 
       <!-- Глава I -->
-      <section class="chapter">
+      <section class="chapter" id="ch1" data-title="Как">
         <header class="chapter-head prose">
           <span class="chapter-num">I</span>
           <h2>Где спрятан моторчик</h2>
@@ -98,15 +99,22 @@
         </div>
       </section>
 
-      <figure class="bleed">
-        <img src="img/sleep2.jpg" alt="Полосатая кошка дремлет, крупный план морды" loading="lazy">
-        <blockquote>
-          <p>Слишком низко, чтобы хорошо расслышать, но достаточно, чтобы почувствовать ладонью.</p>
-        </blockquote>
-      </figure>
+      <section class="pet" id="pet" aria-label="Интерактив: погладь кота">
+        <div class="pet-area" id="petArea">
+          <img src="img/sleep2.jpg" alt="Полосатая кошка дремлет, крупный план морды" loading="lazy" draggable="false">
+          <canvas id="trail" aria-hidden="true"></canvas>
+        </div>
+        <div class="pet-text">
+          <p class="kicker">Попробуй сам</p>
+          <h2>Погладь кота</h2>
+          <p class="pet-hint" id="petHint">Зажми и проведи по фото мышкой или пальцем, как будто гладишь по шёрстке. Включи звук.</p>
+          <div class="meter" aria-hidden="true"><span id="meter"></span></div>
+          <p class="pet-status" id="petStatus" aria-live="polite">Кот дремлет</p>
+        </div>
+      </section>
 
       <!-- Глава II -->
-      <section class="chapter">
+      <section class="chapter" id="ch2" data-title="Зачем">
         <header class="chapter-head prose">
           <span class="chapter-num">II</span>
           <h2>Зачем кошки мурчат</h2>
@@ -161,7 +169,7 @@
       </section>
 
       <!-- Глава III -->
-      <section class="chapter">
+      <section class="chapter" id="ch3" data-title="Кто">
         <header class="chapter-head prose">
           <span class="chapter-num">III</span>
           <h2>Мурчать или рычать</h2>
@@ -196,6 +204,14 @@
         </ol>
       </section>
 
+      <section class="finale" id="end" data-title="Финал">
+        <img src="img/hands.jpg" alt="Чёрная кошка тянется лапой к руке человека" loading="lazy">
+        <div class="finale-text">
+          <p>В следующий раз, когда кот замурчит у тебя на коленях, ты будешь знать: внутри него работает крошечный моторчик.</p>
+          <p class="finale-strong">И это не всегда «мне хорошо». Иногда это просто «побудь рядом».</p>
+        </div>
+      </section>
+
       <section class="sources prose">
         <h2>Источники</h2>
         <ul>
@@ -204,7 +220,7 @@
           <li><a href="https://www.panthera.org/blog-post/which-big-cats-purr" target="_blank" rel="noopener">Panthera: какие большие кошки мурчат</a></li>
           <li><a href="https://en.wikipedia.org/wiki/Purr" target="_blank" rel="noopener">Wikipedia: Purr</a></li>
         </ul>
-        <p class="credits">Фото: Roger Ce, Simion Andreea-Marina, Đào Việt Hoàng, Kabo, Judy Beth Morris, Maximus Beaumont, David Groves, Janis Ringli, Bro Takes Photos — <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>.</p>
+        <p class="credits">Фото: Roger Ce, Simion Andreea-Marina, Đào Việt Hoàng, Kabo, Judy Beth Morris, Maximus Beaumont, David Groves, Janis Ringli, Bro Takes Photos, Humberto Arellano — <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>.</p>
       </section>
     </article>
   </main>
@@ -214,6 +230,12 @@
   </footer>
 
   <div class="progress" aria-hidden="true"><span id="bar"></span></div>
+  <nav class="toc" id="toc" aria-label="Главы">
+    <a href="#ch1"><i>I</i><span>Как мурчат</span></a>
+    <a href="#ch2"><i>II</i><span>Зачем</span></a>
+    <a href="#ch3"><i>III</i><span>Кто ещё</span></a>
+    <a href="#end"><i>·</i><span>Финал</span></a>
+  </nav>
   <script src="script.js"></script>
 </body>
 </html>
