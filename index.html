@@ -2,7 +2,12 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    // Тема ставится до отрисовки, чтобы не было вспышки
+    try { var th = localStorage.getItem('theme'); if (th) document.documentElement.setAttribute('data-theme', th); } catch (e) {}
+  </script>
   <title>Почему мурчат котики?</title>
   <meta name="description" content="Лонгрид о том, как кошки мурчат и зачем им это нужно. Простыми словами и на понятных примерах.">
   <meta property="og:title" content="Почему мурчат котики?">
@@ -15,6 +20,32 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <div class="controls">
+    <button class="ctl" id="themeBtn" type="button" aria-label="Включить тёмную тему" title="Сменить тему">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="cat-ico">
+        <path class="ci-head" d="M6 9 L8 2.5 L13 7.2 Q16 6.4 19 7.2 L24 2.5 L26 9 Q28.5 13 28 18 Q27 27 16 28 Q5 27 4 18 Q3.5 13 6 9 Z"/>
+        <g class="ci-eye"><ellipse cx="11.5" cy="16" rx="3.2" ry="3.4"/><circle class="ci-pupil" cx="11.5" cy="16" r="1.5"/></g>
+        <g class="ci-eye"><ellipse cx="20.5" cy="16" rx="3.2" ry="3.4"/><circle class="ci-pupil" cx="20.5" cy="16" r="1.5"/></g>
+        <path class="ci-nose" d="M14.6 21 h2.8 l-1.4 1.6 z"/>
+      </svg>
+    </button>
+    <button class="ctl" id="shareBtn" type="button" aria-label="Поделиться ссылкой" title="Поделиться">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
+    </button>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <button class="peek" id="peek" type="button" tabindex="-1" aria-hidden="true">
+    <span class="bubble" id="peekBubble">Мур? Ты ещё тут?</span>
+    <svg viewBox="0 0 120 90">
+      <path class="pk-fur" d="M18 40 L24 8 L44 26 Q60 22 76 26 L96 8 L102 40 Q110 58 104 90 L16 90 Q10 58 18 40 Z"/>
+      <path class="pk-ear" d="M25 32 L28 17 L38 27 Z M95 32 L92 17 L82 27 Z"/>
+      <g class="pk-eyes"><ellipse cx="44" cy="50" rx="6" ry="7"/><ellipse cx="76" cy="50" rx="6" ry="7"/></g>
+      <path class="pk-line" d="M56 62 h8 l-4 4 z M60 66 q-5 6 -11 3 M60 66 q5 6 11 3"/>
+      <ellipse class="pk-fur" cx="30" cy="88" rx="16" ry="9"/><ellipse class="pk-fur" cx="90" cy="88" rx="16" ry="9"/>
+    </svg>
+  </button>
 
   <header class="cover">
     <img class="cover-img" src="img/sleep1.jpg" alt="Рыжий кот спит, уткнувшись носом в лапы">
@@ -227,6 +258,7 @@
 
   <footer class="foot">
     <p>Демо-проект для портфолио. Вёрстка, анимация и звук — чистый HTML, CSS и JavaScript.</p>
+    <p class="egg-hint">P.S. Дважды нажми в любом месте. А на клавиатуре попробуй набрать «мяу».</p>
   </footer>
 
   <div class="progress" aria-hidden="true"><span id="bar"></span></div>

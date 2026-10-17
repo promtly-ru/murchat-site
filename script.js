@@ -160,7 +160,7 @@
   var meter = document.getElementById('meter');
   var status = document.getElementById('petStatus');
   var hint = document.getElementById('petHint');
-  var level = 0, last = null, trail = [], lastVibe = 0, petted = false;
+  var level = 0, burst = 0, last = null, trail = [], lastVibe = 0, petted = false;
 
   function resize() {
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -239,14 +239,172 @@
       g.fill();
     }
 
-    setVolume(Math.max(listenOn ? 1 : 0, Math.min(1, level * 1.3)));
+    burst *= 0.975;
+    if (burst < 0.01) burst = 0;
+    setVolume(Math.max(listenOn ? 1 : 0, Math.min(1, level * 1.3), burst));
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
 
   document.addEventListener('visibilitychange', function () {
     if (!document.hidden) return;
-    level = 0;
+    level = 0; burst = 0;
     if (listenOn) btn.click();
   });
+
+  // Короткое мурчание для мелких фишек
+  function purrBurst(v) { if (ensureAudio()) burst = Math.max(burst, v || 0.9); }
+
+  // ---------- Уведомление ----------
+  var toastEl = document.getElementById('toast');
+  var toastTimer;
+  function toast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 2600);
+  }
+
+  // ---------- Тема ----------
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('themeBtn');
+  var metaTheme = document.querySelector('meta[name="theme-color"]');
+  var mq = matchMedia('(prefers-color-scheme: dark)');
+  function stored() { try { return localStorage.getItem('theme'); } catch (e) { return null; } }
+  function isDark() {
+    var t = root.getAttribute('data-theme');
+    return t ? t === 'dark' : mq.matches;
+  }
+  function syncTheme() {
+    var dark = isDark();
+    root.classList.toggle('is-dark', dark);
+    themeBtn.setAttribute('aria-label', dark ? 'Включить светлую тему' : 'Включить тёмную тему');
+    metaTheme.setAttribute('content', dark ? '#141110' : '#f3efe8');
+  }
+  themeBtn.addEventListener('click', function () {
+    var next = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+    syncTheme();
+    themeBtn.classList.remove('spin');
+    void themeBtn.offsetWidth;
+    themeBtn.classList.add('spin');
+    toast(next === 'dark' ? 'Ночной режим: глаза светятся' : 'Дневной режим');
+  });
+  (mq.addEventListener ? mq.addEventListener.bind(mq, 'change') : mq.addListener.bind(mq))(function () {
+    if (!stored()) syncTheme();
+  });
+  syncTheme();
+
+  // Зрачки котика на кнопке следят за курсором
+  var pupils = themeBtn.querySelectorAll('.ci-pupil');
+  var eyeBase = [[11.5, 16], [20.5, 16]];
+  var eyeQueued = false, ptr = null;
+  addEventListener('pointermove', function (e) {
+    ptr = e;
+    if (eyeQueued) return;
+    eyeQueued = true;
+    requestAnimationFrame(function () {
+      eyeQueued = false;
+      var r = themeBtn.getBoundingClientRect();
+      var dx = ptr.clientX - (r.left + r.width / 2), dy = ptr.clientY - (r.top + r.height / 2);
+      var d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 120) * 1.5;
+      pupils.forEach(function (p, i) {
+        p.setAttribute('cx', (eyeBase[i][0] + dx / d * k).toFixed(2));
+        p.setAttribute('cy', (eyeBase[i][1] + dy / d * k).toFixed(2));
+      });
+    });
+  }, { passive: true });
+
+  // ---------- Поделиться ----------
+  document.getElementById('shareBtn').addEventListener('click', function () {
+    var data = { title: document.title, text: 'Простое объяснение, почему кошки мурчат', url: location.href };
+    if (navigator.share) {
+      navigator.share(data).catch(function () {});
+    } else if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(location.href).then(function () { toast('Ссылка скопирована'); }, function () { toast(location.href); });
+    } else {
+      toast(location.href);
+    }
+  });
+
+  // ---------- Кот выглядывает, если долго ничего не делать ----------
+  var peek = document.getElementById('peek');
+  var bubble = document.getElementById('peekBubble');
+  var idleTimer, peekBusy = false;
+  function hidePeek() {
+    if (peekBusy) return;
+    peek.classList.remove('show');
+  }
+  function armIdle() {
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(function () {
+      if (document.hidden || level > 0.05) return armIdle();
+      bubble.textContent = 'Мур? Ты ещё тут?';
+      peek.classList.add('show');
+    }, 15000);
+  }
+  ['scroll', 'keydown', 'pointerdown', 'wheel', 'touchstart'].forEach(function (ev) {
+    addEventListener(ev, function (e) {
+      if (peek.contains(e.target)) return;
+      hidePeek(); armIdle();
+    }, { passive: true });
+  });
+  peek.addEventListener('click', function () {
+    peekBusy = true;
+    bubble.textContent = 'Мррр!';
+    peek.classList.add('purr');
+    purrBurst(1);
+    setTimeout(function () {
+      peek.classList.remove('purr');
+      peekBusy = false;
+      hidePeek(); armIdle();
+    }, 1600);
+  });
+  armIdle();
+
+  // ---------- Лапки ----------
+  var PAW = '<svg viewBox="0 0 24 24"><ellipse cx="12" cy="16" rx="5" ry="4.2"/><circle cx="6.3" cy="10.6" r="2.2"/><circle cx="9.9" cy="6.9" r="2.3"/><circle cx="14.1" cy="6.9" r="2.3"/><circle cx="17.7" cy="10.6" r="2.2"/></svg>';
+  function stamp(x, y, rot) {
+    var p = document.createElement('span');
+    p.className = 'paw';
+    p.innerHTML = PAW;
+    p.style.left = x + 'px';
+    p.style.top = y + 'px';
+    p.style.setProperty('--r', (rot == null ? Math.random() * 60 - 30 : rot) + 'deg');
+    document.body.appendChild(p);
+    setTimeout(function () { p.remove(); }, 2500);
+  }
+  addEventListener('dblclick', function (e) {
+    if (e.target.closest('button, a, input')) return;
+    var sel = window.getSelection && getSelection();
+    if (sel && sel.removeAllRanges) sel.removeAllRanges();
+    // пара шагов: две лапки чуть вразнобой
+    stamp(e.pageX - 12, e.pageY + 8, -14);
+    setTimeout(function () { stamp(e.pageX + 14, e.pageY - 14, 12); }, 180);
+  });
+
+  // ---------- Пасхалка: набери «мяу» ----------
+  var typed = '';
+  addEventListener('keydown', function (e) {
+    if (!e.key || e.key.length !== 1 || e.ctrlKey || e.metaKey || e.altKey) return;
+    typed = (typed + e.key.toLowerCase()).slice(-6);
+    if (/(мяу|meow|vze)$/.test(typed)) { typed = ''; pawRain(); }
+  });
+  function pawRain() {
+    toast('Мяу! Ты нашёл пасхалку');
+    purrBurst(1);
+    if (reduceMotion) return;
+    for (var i = 0; i < 28; i++) {
+      var p = document.createElement('span');
+      var size = 18 + Math.random() * 24;
+      var dur = 2.6 + Math.random() * 2.2;
+      p.className = 'paw-rain';
+      p.innerHTML = PAW;
+      p.style.cssText = 'left:' + (Math.random() * 100) + 'vw;width:' + size + 'px;height:' + size + 'px;animation-duration:' + dur + 's;animation-delay:' + (Math.random() * 1.2) + 's;opacity:' + (0.5 + Math.random() * 0.5);
+      p.style.setProperty('--r', (Math.random() * 360) + 'deg');
+      document.body.appendChild(p);
+      setTimeout(p.remove.bind(p), (dur + 1.4) * 1000);
+    }
+  }
 })();
