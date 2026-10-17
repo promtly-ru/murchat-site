@@ -373,3 +373,8 @@ p { margin: 0 0 1.1em; }
   .reason, .trio figure, .summary li, .hypothesis { break-inside: avoid; }
   .sources a::after { content: " (" attr(href) ")"; font-size: 8pt; word-break: break-all; }
 }
+
+.foot-brand { font-weight: 600; }
+.foot-cta { display: inline-block; margin-top: 14px; padding: 10px 20px; border: 1.5px solid var(--ink); border-radius: 999px; color: var(--ink); text-decoration: none; font-weight: 500; transition: background-color .2s, color .2s; }
+@media (hover: hover) { .foot-cta:hover { background: var(--ink); color: var(--paper); } }
+@media print { .foot-cta { display: none; } }
